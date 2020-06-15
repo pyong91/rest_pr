@@ -1,0 +1,9 @@
+# yml 방식
+server:
+  port: 80
+  servlet:
+    context-path: /demo
+   
+# 프로퍼티 방식
+# server.port=80
+# server.servlet.context-path=/demo
