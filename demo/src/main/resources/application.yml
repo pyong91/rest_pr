@@ -26,3 +26,13 @@ spring:
       max-wait-millis: 3000
       
 # 2. 설정 클래스 생성 (@Configuration) - 충돌 방생하지 않음
+
+# JPA 설정
+  jpa:
+    database: oracle
+    show-sql: true
+    hibernate:
+      ddl-auto: create # create: 시작시 생성, update: 변동사항 갱신 (create 시작 시 마다 생성이라 db 갱신됨)
+    
+    
+    
