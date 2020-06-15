@@ -7,3 +7,22 @@ server:
 # 프로퍼티 방식
 # server.port=80
 # server.servlet.context-path=/demo
+
+
+# database 설정
+# 1. 설정 파일에 수행
+# 2. 설정 클래스 생성 (@Configuration)
+
+# 1. 설정 파일에 수행 - 독고다이로 돌아가는 프로젝트에서 유용(다른 프로젝트와 충돌 발생함)
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: kh
+    password: kh
+    dbcp2:
+      max-total: 20
+      max-idle: 10
+      max-wait-millis: 3000
+      
+# 2. 설정 클래스 생성 (@Configuration) - 충돌 방생하지 않음
