@@ -3,6 +3,10 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Book;
 import com.example.demo.repository.BookRepository;
 
+// CORS 설정
+//  - Cross-Origin Resource Sharing의 줄임말
+//  - 다른 출처의 자원에 접근할 수 있도록 허용하는 설정
+
+@CrossOrigin(origins = {"*"}, allowedHeaders = {"Authorization"})
 @RestController
 public class DemoController {
 	
@@ -49,6 +58,7 @@ public class DemoController {
 	@GetMapping("/book/")
 	public List<Book> list() {
 		return bookRepo.findAll();
+		//return bookRepo.findAll(PageRequest.of(0, 10));
 	}
 	
 	// 파라미터처럼 주소에 데이터를 보낼 일이 있으면 PathVariable을 사용
@@ -84,6 +94,22 @@ public class DemoController {
 	@GetMapping("/book/no/{no}")
 	public Book get(@PathVariable int no) throws Exception{
 		return bookRepo.findById(no).orElseThrow(Exception::new);
+	}
+	
+	@GetMapping("/book/name/{name}")
+	public List<Book> get(@PathVariable String name) { 
+		//return bookRepo.findAllByName(name);	// 이름 일치 검색
+		return bookRepo.findAllByNameContaining(name);
+	}
+	
+	@GetMapping("/book/page/{page}/size/{size}/order/{order}")
+	public Page<Book> list(
+			@PathVariable int page, 
+			@PathVariable int size,  
+			@PathVariable String order) {
+		// page번호가 0부터 시작 (보정 필요)
+		PageRequest req = PageRequest.of(page - 1, size, Sort.by(order));
+		return bookRepo.findAll(req);
 	}
 	
 }

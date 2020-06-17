@@ -32,7 +32,7 @@ spring:
     database: oracle
     show-sql: true
     hibernate:
-      ddl-auto: update # create: 시작시 생성, update: 변동사항 갱신 (create 시작 시 마다 생성이라 db 갱신됨)
+      ddl-auto: create # create: 시작시 생성, update: 변동사항 갱신 (create 시작 시 마다 생성이라 db 갱신됨)
     
     
     
