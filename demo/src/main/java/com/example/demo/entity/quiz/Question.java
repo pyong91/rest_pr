@@ -36,8 +36,11 @@ public class Question {
 	// 관계 설정
 	// - 1대 다 관계이면서 등록과 삭제가 동시에 이루어짐
 	// - 연결 테이블을 따로 두지 않고 보기가 문제를 참조하는 구조로 DB를 구성하려면 mappedBy 옵션 사용
+	// - PERSIST : 등록이 함께 이루어짐
+	// - REMOVE : 삭제가 함께 이루어짐
+	// - MERGE : 수정이 함께 이루어짐
 	@OneToMany(cascade = {
-			CascadeType.PERSIST, CascadeType.REMOVE},
+			CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE},
 			mappedBy = "question")
 	// 문제는 무한 루프 (문제안에 보기, 보기안에 문제)
 	// 문제는 무한 루프(json이나 toString의 경우)에 빠진다는 것
