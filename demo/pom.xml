@@ -99,6 +99,14 @@
 		    <version>2.9.2</version>
 		</dependency>
 		
+		<!-- JWT(JSON Web Token)을 구현하기 위한 의존성 -->
+		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt</artifactId>
+		    <version>0.9.1</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
