@@ -4,9 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.collect.Lists;
+
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiKey;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -27,7 +30,15 @@ public class SwaggerConfiguration {
 				  .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
 				  // paths 에서는 감시 대상 주소를 설정
 				  .paths(PathSelectors.any())	// 경로 정보
-				.build();
+				.build()
+				// sercurity schema 설정을 통해 header 값을 설정할 수 있도록 처리
+				// 현재 구동되지 않음
+				.securitySchemes(Lists.newArrayList(apiKey()));
+	}
+	
+	private ApiKey apiKey() {
+		// Apikey(화면표시이름, 실제전송이름, 첨부할영역)
+		return new ApiKey("JWT", "Authorization", "header");
 	}
 	
 }
